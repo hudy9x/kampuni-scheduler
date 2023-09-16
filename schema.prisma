@@ -1,0 +1,27 @@
+datasource db {
+  // could be postgresql or mysql
+  provider = "mongodb"
+  url      = "mongodb+srv://kadmin:CNl8IgyZZ8LRKUPc@cluster0.weszq.mongodb.net/kampuni?ssl=true&connectTimeoutMS=5000&maxPoolSize=50"
+}
+ 
+generator db {
+  provider = "go run github.com/steebchen/prisma-client-go"
+}
+
+enum NotificationStatus {
+  JUSTONCE
+  REGULARLY
+}
+
+model Notification {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  type        NotificationStatus
+  time        String
+  title       String
+  desc        String
+  recipients  String[]
+  createdAt   DateTime?
+  createdBy   String?
+  updatedAt   DateTime?
+  updatedBy   String?
+}
